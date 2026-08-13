@@ -12,7 +12,7 @@
 			system = "x86_64-linux";
 			modules = [
 				./configuration.nix
-				./hardware-configuration
+				./hardware-configuration.nix
 				home-manager.nixosModules.default {
 					home-manager = {
 						useGlobalPkgs = true;

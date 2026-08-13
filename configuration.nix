@@ -5,10 +5,12 @@
 { config, pkgs, ... }:
 
 {
-  #imports =
-  #  [ # Include the results of the hardware scan.
+  imports =
+    [ # Include the results of the hardware scan.
   #    /etc/nixos/hardware-configuration.nix
-  #  ];
+       ./modules/common.nix
+       ./modules/graphical.nix
+    ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Bootloader.
   boot.loader.grub.enable = true;
