@@ -1,5 +1,5 @@
 {
-	desctription = "Main config";
+	description = "Main config";
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 	};
