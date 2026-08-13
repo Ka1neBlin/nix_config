@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
+  nix.settings.experimental-features = [ "nix-command", "flakes"];
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
@@ -49,10 +49,10 @@
   };
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "ru";
-    variant = "";
-  };
+  #services.xserver.xkb = {
+  #  layout = "ru";
+  #  variant = "";
+  #};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."yoel" = {
