@@ -77,31 +77,65 @@
 	wayland.windowManager.hyprland = {
 		enable = true;
 		systemd.enable = true;
-		configType = "lua";
+		#configType = "lua";
 		extraConfig = ''
+hl.monitor({
+	output = "Virtual-1",
+	mode = "1920x1080@60",
+	position = "0x0",
+	scale = 1,
+})
 hl.on("hyprland.start", function() hl.exec_cmd("noctalia") end)
-hl.bind("SUPER + Q", hl.dsp.exec_cmd("kitty"))
-hl.bind("SUPER + C", hl.dsp.window.close())
-hl.bind("SUPER + E", hl.dsp.exec_cmd("nautilus"))
-hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind("ALT + Q", hl.dsp.exec_cmd("kitty"))
+hl.bind("ALT + C", hl.dsp.window.close())
+hl.bind("ALT + E", hl.dsp.exec_cmd("nautilus"))
+hl.bind("ALT + F", hl.dsp.exec_cmd("firefox"))
+hl.bind("ALT + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind("ALT + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.general = {
-	gaps_in = 5;
-	gaps_out = 20;
-	resize_on_border = false;
-	allow_tearing = false;
-	layout = "dwindle";
-}
-hl.decoration = {
-	rounding = 10;
-	active_opacity = 0.97;
-	inactive_opacity = 0.8;
-}
-hl.input = {
-	kb_layout = "us,ru";
-	kb_options = "grp:win_space_toggle";
-}
-		'';
+hl.config({
+general = {
+	gaps_in = 5,
+	gaps_out = 20,
+	resize_on_border = false,
+	allow_tearing = false,
+	layout = "dwindle",
+},
+decoration = {
+	rounding = 10,
+	active_opacity = 0.97,
+	inactive_opacity = 0.8,
+},
+input = {
+	kb_layout = "us,ru",
+	kb_options = "grp:win_space_toggle",
+},
+})
+'';
 	};
+  programs.kitty = lib.mkForce {
+    enable = true;
+    settings = {
+      font_family = "JetBrains Mono";
+      font_size = "12.0";
+      window_padding_width = 10;
+    };
+    themeFile = "Kaolin_Temple";
+  };
+  programs.firefox = {
+    enable = true;
+    languagePacks = [ "ru-RU" "en-US" ];
+    #preferences = {
+    #  "browser.startup.homepage" = "https://dzen.ru";
+    #};
+    policies = {
+      DisableTelemetry = true;
+    };
+  };
+  programs.zsh = {
+     enable = true;
+     enableCompletion = true;
+     autosuggestion.enable = true;
+     syntaxHighlighting.enable = true;
+  };
 }
