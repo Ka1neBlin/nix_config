@@ -20,9 +20,27 @@
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
 	];
-	programs.neovim = {
+	#programs.neovim = {
+	#	enable = true;
+	#	defaultEditor = true;
+	#};
+	programs.nixvim = {
 		enable = true;
-		defaultEditor = true;
+		colorschemes.kanagawa.enable = true;
+		plugins.lualine.enable = true;
+		globals.mapleader = " ";
+		plugins = {
+			neo-tree.enable = true;
+		};
+		keymaps = [
+			{
+				key = "<leader>e";
+				action = "<cmd>Neotree toggle<CR>";
+				options = {
+					desc = "Toggle Tree View";
+				};
+			}
+		];
 	};
 	programs.noctalia = {
 		enable = true;

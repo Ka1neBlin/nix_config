@@ -10,13 +10,18 @@
 			url = "github:noctalia-dev/noctalia";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		nixvim = {
+			url = "github:nix-community/nixvim";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = { self, nixpkgs, home-manager, ... }@inputs : {
+	outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs : {
 		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			modules = [
 				./configuration.nix
 				./hardware-configuration.nix
+				nixvim.nixosModules.nixvim
 			];
 		};
 		homeConfigurations."yoel" = home-manager.lib.homeManagerConfiguration {
