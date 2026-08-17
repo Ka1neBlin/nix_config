@@ -24,9 +24,9 @@
 			system = "x86_64-linux";
 			modules = [
 				./configuration.nix
-				# ./hardware-configuration.nix
+				./hardware-configuration.nix
 				nixvim.nixosModules.nixvim
-                (import /etc/nixos/hardware-configuration.nix)
+                # (import /etc/nixos/hardware-configuration.nix)
 			];
 		};
 		homeConfigurations."yoel" = home-manager.lib.homeManagerConfiguration {
