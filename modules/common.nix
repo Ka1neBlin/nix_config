@@ -69,6 +69,32 @@ EOF
 		globals.mapleader = " ";
 		plugins = {
 			neo-tree.enable = true;
+			treesitter.enable = true;
+			nvim-autopairs.enable = true;
+			comment = {
+				enable = true;
+				settings = {
+					padding = true;
+					sticky = true;
+					toggler = {
+						line = "<leader>/";
+						block = "<leader>*/";
+					};
+					opleader = {
+						line = "<leader>/";
+						block = "<leader>*/";
+					};
+				};
+			};
+			cmp = {
+				autoEnableSources = true;
+				settings.sources = [
+					{ name = "nvim_lsp"; }
+					{ name = "path"; }
+					{ name = "buffer"; }
+					{ name = "luasnip"; }
+				];
+			};
 		};
 		keymaps = [
 			{
@@ -79,6 +105,13 @@ EOF
 				};
 			}
 		];
+		opts = {
+			tabstop = 4;
+			relativenumber = true;
+			number = true;
+			shiftwidth = 4;
+			expandtab = true;
+		};
 	};
 	programs.noctalia = {
 		enable = true;

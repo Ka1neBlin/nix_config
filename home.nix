@@ -6,6 +6,11 @@
   home.username = "yoel";
   home.homeDirectory = "/home/yoel";
 
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+  };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -79,6 +84,9 @@
 		systemd.enable = true;
 		#configType = "lua";
 		extraConfig = ''
+hl.env("XCURSOR_THEME", "Adwaita")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR", "24")
 hl.monitor({
 	output = "Virtual-1",
 	mode = "1920x1080@60",
@@ -90,9 +98,25 @@ hl.bind("ALT + Q", hl.dsp.exec_cmd("kitty"))
 hl.bind("ALT + C", hl.dsp.window.close())
 hl.bind("ALT + E", hl.dsp.exec_cmd("nautilus"))
 hl.bind("ALT + F", hl.dsp.exec_cmd("firefox"))
+hl.bind("ALT + T", hl.dsp.exec_cmd("Telegram"))
+hl.bind("ALT + R", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+hl.bind("ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind("ALT + W", hl.dsp.exec_cmd("noctalia msg wallpaper-random"))
+hl.bind("ALT + SHIFT + W", hl.dsp.exec_cmd("noctalia msg settings-toggle"))
+hl.bind("ALT + SHIFT + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 hl.bind("ALT + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind("ALT + mouse:273", hl.dsp.window.resize(), { mouse = true })
-
+for i = 1, 10 do
+    local key = i % 10 -- 10 maps to key 0
+    hl.bind("ALT + " .. key,             hl.dsp.focus({ workspace = i}))
+    hl.bind("ALT + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+end
+hl.bind("ALT + left", hl.dsp.focus({ direction = "left" }))
+hl.bind("ALT + right", hl.dsp.focus({ direction = "right" }))
+hl.bind("ALT + up", hl.dsp.focus({ direction = "up" }))
+hl.bind("ALT + down", hl.dsp.focus({ direction = "down" }))
+hl.bind("ALT + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind("ALT + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 hl.config({
 general = {
 	gaps_in = 5,
@@ -132,11 +156,40 @@ input = {
     policies = {
       DisableTelemetry = true;
     };
+    profiles.default = {
+        id = 0;
+        name = "Default";
+        isDefault = true;
+        settings = {
+            "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+            "browser.startup.homepage" = "https://dzen.ru";
+        };
+    };
   };
-#  programs.zsh = {
-#     enable = true;
-#     enableCompletion = true;
-#     autosuggestion.enable = true;
-#     syntaxHighlighting.enable = true;
-#  };
+  gtk = {
+    enable = true;
+    theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome-themes-extra;
+    };
+    gtk3.extraConfig = {
+        Settings = ''
+            gtk-application-prefer-dark-theme=1
+        '';
+    };
+
+    gtk4.extraConfig = {
+        Settings = ''
+            gtk-application-prefer-dark-theme=1
+        '';
+    };
+    # qt = {
+    #     enable = true;
+    #     platformTheme = "gnome";
+    #     style = {
+    #         name = "adwaita-dark";
+    #         package = pkgs.adwaita-qt;
+    #     };
+    # };
+  };
 }
