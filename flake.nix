@@ -14,14 +14,19 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+        # hardware = {
+        #     url = "path:/etc/nixos/hardware-configuration.nix";
+        #     flake = false;
+        # };
 	};
-	outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs : {
+	outputs = { self, nixpkgs, home-manager, nixvim, /* hardware, */ ... }@inputs : {
 		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			modules = [
 				./configuration.nix
-				./hardware-configuration.nix
+				# ./hardware-configuration.nix
 				nixvim.nixosModules.nixvim
+                (import /etc/nixos/hardware-configuration.nix)
 			];
 		};
 		homeConfigurations."yoel" = home-manager.lib.homeManagerConfiguration {
