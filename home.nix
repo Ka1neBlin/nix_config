@@ -183,6 +183,11 @@ input = {
             gtk-application-prefer-dark-theme=1
         '';
     };
+    programs.git = {
+        enable = true;
+        userName = "Liza Belonina";
+        userEmail = "fkme.fuhua@gmail.com";
+    };
     # qt = {
     #     enable = true;
     #     platformTheme = "gnome";
