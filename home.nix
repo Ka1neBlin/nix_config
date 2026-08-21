@@ -79,6 +79,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+    programs.hyprshot.enable = true;
 	wayland.windowManager.hyprland = {
 		enable = true;
 		systemd.enable = true;
@@ -88,7 +89,7 @@ hl.env("XCURSOR_THEME", "Adwaita")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR", "24")
 hl.monitor({
-	output = "Virtual-1",
+	output = "",
 	mode = "1920x1080@60",
 	position = "0x0",
 	scale = 1,
@@ -99,6 +100,7 @@ hl.bind("SUPER + C", hl.dsp.window.close())
 hl.bind("SUPER + E", hl.dsp.exec_cmd("nautilus"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("firefox"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("Telegram"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("noctalia msg wallpaper-random"))
@@ -117,6 +119,13 @@ hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
 hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
 hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind("SUPER + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind("F7", hl.dsp.exec_cmd("playerctl play-pause"))
+hl.bind("F5", hl.dsp.exec_cmd("playerctl previos"))
+hl.bind("F6", hl.dsp.exec_cmd("playerctl previos"))
+hl.bind("F8", hl.dsp.exec_cmd("playerctl stop"))
+hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m output -m active --clipboard-only"))
+hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+hl.bind("ALT + PRINT", hl.dsp.exec_cmd("hyprshot -m window -m active --clipboard-only"))
 hl.config({
 general = {
 	gaps_in = 5,

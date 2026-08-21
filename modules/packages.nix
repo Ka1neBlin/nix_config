@@ -24,6 +24,11 @@
    qbittorrent
    tree
    uv
+   hyprshot
+   # grim
+   # slurp
+   # wl-clipboard
+   # libnotify
   ];
   users.defaultUserShell = pkgs.zsh;
 }
