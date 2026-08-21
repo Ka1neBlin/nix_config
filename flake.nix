@@ -26,6 +26,9 @@
 				./configuration.nix
 				./hardware-configuration.nix
 				nixvim.nixosModules.nixvim
+                ./modules/common.nix
+                ./modules/graphical.nix
+                ./modules/packages.nix
                 # (import /etc/nixos/hardware-configuration.nix)
 			];
 		};
