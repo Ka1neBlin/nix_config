@@ -12,7 +12,9 @@
    curl
    amnezia-vpn
    steam
-   discord-ptb
+   # discord-ptb
+   lsd
+   bat
    amberol
    btop
    fastfetch
@@ -20,6 +22,8 @@
    nautilus
    gimp
    qbittorrent
+   tree
+   uv
   ];
   users.defaultUserShell = pkgs.zsh;
 }

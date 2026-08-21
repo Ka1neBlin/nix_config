@@ -5,19 +5,20 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-  #    /etc/nixos/hardware-configuration.nix
-       ./modules/common.nix
-       ./modules/graphical.nix
-    ];
+  # imports =
+  #   [ # Include the results of the hardware scan.
+  #     ./hardware-configuration.nix
+  #   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
-  # Use provided UUIDs instead of blkid probing (required for btrfs subvolumes)
-  boot.loader.grub.fsIdentifier = "provided";
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+  };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -51,10 +52,10 @@
   };
 
   # Configure keymap in X11
-  #services.xserver.xkb = {
-  #  layout = "ru";
-  #  variant = "";
-  #};
+#  services.xserver.xkb = {
+#    layout = "ru";
+#    variant = "";
+#  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."yoel" = {
@@ -73,7 +74,27 @@
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
    wget
    git
+   # qtwayland
   ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    open = false;
+    forceFullCompositionPipeline = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  boot.kernelParams = [
+    "nvidia_drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+  ];
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  fileSystems."/mnt/disk" = {
+    device = "/dev/disk/by-uuid/e7fd7864-a468-4e04-8eea-bfd4a4ebfccd";
+    fsType = "ext4";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -19,6 +19,12 @@
         #     flake = false;
         # };
 	};
+#	nixConfig = {
+#		substituters = [
+#			"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+#			"https://cache.nixos.org"
+#		];
+#	};
 	outputs = { self, nixpkgs, home-manager, nixvim, /* hardware, */ ... }@inputs : {
 		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
@@ -29,6 +35,7 @@
                 ./modules/common.nix
                 ./modules/graphical.nix
                 ./modules/packages.nix
+                ./modules/system.nix
                 # (import /etc/nixos/hardware-configuration.nix)
 			];
 		};

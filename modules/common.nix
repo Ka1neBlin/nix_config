@@ -3,6 +3,12 @@
 	services.displayManager.sddm = {
 		enable = true;
 		wayland.enable = true;
+        settings = {
+            General = {
+                DisplayServer = "wayland";
+                GreeterEnvironment = "QT_WAYLAND_DISABLE_WINDOWDECORATION=1";
+            };
+        };
 	};
 	programs.zsh = {
 		enable = true;
@@ -50,7 +56,8 @@ EOF
       [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
       
       # Отключаем сообщение Oh My Zsh о ненайденной теме
-      export ZSH_THEME=""'';
+      export ZSH_THEME=""
+      '';
 #		promptInit = ''
 #      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 #    '';
@@ -58,10 +65,11 @@ EOF
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
 	];
-	#programs.neovim = {
-	#	enable = true;
-	#	defaultEditor = true;
-	#};
+	# programs.neovim = {
+	# 	enable = true;
+	# 	defaultEditor = true;
+	# };
+    environment.variables.EDITOR = "nvim";
 	programs.nixvim = {
 		enable = true;
 		colorschemes.kanagawa.enable = true;
@@ -86,15 +94,16 @@ EOF
 					};
 				};
 			};
-			cmp = {
-				autoEnableSources = true;
-				settings.sources = [
-					{ name = "nvim_lsp"; }
-					{ name = "path"; }
-					{ name = "buffer"; }
-					{ name = "luasnip"; }
-				];
-			};
+            lsp = {
+                enable = true;
+                servers = {
+                    nixd.enable = true;
+                    pyright.enable = true;
+                    ts_ls.enable = true;
+                };
+            };
+            blink-cmp.enable = true;
+            luasnip.enable = true;
 		};
 		keymaps = [
 			{
@@ -117,4 +126,6 @@ EOF
 		enable = true;
 	};
 	programs.yazi.enable = true;
+    programs.amnezia-vpn.enable = true;
+    programs.steam.enable = true;
 }
