@@ -18,6 +18,7 @@
     enable = true;
     efiSupport = true;
     device = "nodev";
+    yorhaTheme.enable = true;
   };
 
   # Use latest kernel.

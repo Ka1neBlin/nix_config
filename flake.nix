@@ -15,8 +15,9 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
         qylock.url = "github:Darkkal44/qylock";
+        yorha.url = "github:berker-z/yorha-flake";
 	};
-	outputs = { self, nixpkgs, home-manager, nixvim, qylock, ... }@inputs : {
+	outputs = { self, nixpkgs, home-manager, nixvim, qylock, yorha, ... }@inputs : {
 		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			modules = [
@@ -24,6 +25,7 @@
 				./hardware-configuration.nix
 				nixvim.nixosModules.nixvim
                 qylock.nixosModules.default
+                yorha.nixosModules.yorha-grub-theme
                 ./modules/common.nix
                 ./modules/graphical.nix
                 ./modules/packages.nix
