@@ -12,7 +12,8 @@
    curl
    amnezia-vpn
    steam
-   # discord-ptb
+   discord-ptb
+   nodejs
    lsd
    bat
    amberol
@@ -25,10 +26,10 @@
    tree
    uv
    hyprshot
-   # grim
-   # slurp
-   # wl-clipboard
-   # libnotify
+   ffmpeg
+   beets
+   chromaprint
+   gelly
   ];
   users.defaultUserShell = pkgs.zsh;
 }
